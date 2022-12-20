@@ -1,5 +1,5 @@
 {
-    "name": "sovit",
+    "name": "sameer",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -16,7 +16,7 @@
             "prettier --write ."
         ]
     },
-    "author": " sovit chaudhary <sovit.202104006@tulas.edu.in>",
+    "author": " sameer chaudhary <sameer.202104097@tulas.edu.in>",
     "license": "ISC",
     "dependencies": {
         "ejs": "^3.1.8",
