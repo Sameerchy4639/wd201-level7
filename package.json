@@ -16,7 +16,7 @@
       "prettier --write ."
     ]
   },
-  "author": " sameer chaudhary <sameer.202104098@tulas.edu.in>",
+  "author": " sameer chaudhary <sameer.202104097@tulas.edu.in>",
   "license": "ISC",
   "dependencies": {
     "cookie-parser": "^1.4.6",
