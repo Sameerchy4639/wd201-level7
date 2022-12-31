@@ -1,8 +1,6 @@
 /* eslint-disable require-jsdoc */
-'use strict';
-const {
-  Model, Op
-} = require('sequelize');
+"use strict";
+const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -14,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
-    static addTodo({title, dueDate}) {
-      return this.create({title: title, dueDate: dueDate, completed: false});
+    static addTodo({ title, dueDate }) {
+      return this.create({ title: title, dueDate: dueDate, completed: false });
     }
 
-    static getTodos(){
+    static getTodos() {
       return this.findAll();
     }
 
@@ -26,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       return await Todo.findAll({
         where: {
           dueDate: { [Op.lt]: new Date().toLocaleDateString("en-CA") },
+          completed: false,
         },
       });
     }
@@ -35,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       return await Todo.findAll({
         where: {
           dueDate: { [Op.eq]: new Date().toLocaleDateString("en-CA") },
+          completed: false,
         },
       });
     }
@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       return await Todo.findAll({
         where: {
           dueDate: { [Op.gt]: new Date().toLocaleDateString("en-CA") },
+          completed: false,
         },
       });
     }
@@ -52,22 +53,31 @@ module.exports = (sequelize, DataTypes) => {
       return this.destroy({
         where: {
           id,
-        }
-      })
+        },
+      });
     }
 
-
-    markAsCompleted() {
-      return this.update({completed: true});
+    static async completedItems() {
+      return this.findAll({
+        where: {
+          completed: true,
+        },
+      });
+    }
+    setCompletionStatus(receiver) {
+      return this.update({ completed: receiver });
     }
   }
-  Todo.init({
-    title: DataTypes.STRING,
-    dueDate: DataTypes.DATEONLY,
-    completed: DataTypes.BOOLEAN,
-  }, {
-    sequelize,
-    modelName: 'Todo',
-  });
+  Todo.init(
+    {
+      title: DataTypes.STRING,
+      dueDate: DataTypes.DATEONLY,
+      completed: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: "Todo",
+    }
+  );
   return Todo;
 };
